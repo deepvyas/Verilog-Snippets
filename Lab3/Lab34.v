@@ -1,3 +1,5 @@
+//=========================Exercise=========================================
+
 module jkff(Q,j,k,clk);
     input j,k,clk;
     output Q;
@@ -25,4 +27,97 @@ module counter(count,clk);
     and a2(mid3,count[2],mid2);
     jkff f4(count[3],mid3,mid3,clk);
     
+endmodule
+
+// ==================================================================
+
+module FSM(y,x,clk,rst);
+    output y;
+    reg y;
+    input x,clk,rst;
+    reg [2:0] state;
+    always @(posedge clk or posedge rst)
+    begin
+        if(rst)
+        begin
+            state<=3'b000;
+            y<=1'b0;                
+        end
+        else
+        begin
+            case(state)
+                3'b000:
+                begin
+                    if(x)
+                    begin
+                        state<=3'b001;
+                        y<=0;                
+                    end
+                    else 
+                    begin
+                        state<=3'b000;
+                        y<=0;                
+                    end            
+                end
+                3'b001:
+                begin
+                    if(x)
+                    begin
+                        state<=3'b001;
+                        y<=0;                
+                    end
+                    else 
+                    begin
+                        state<=3'b010;
+                        y<=0;                
+                    end            
+                end
+                3'b010:
+                begin
+                    if(x)
+                    begin
+                        state<=3'b011;
+                        y<=0;                
+                    end
+                    else 
+                    begin
+                        state<=3'b000;
+                        y<=0;                
+                    end            
+                end
+                3'b011:
+                begin
+                    if(x)
+                    begin
+                        state<=3'b100;
+                        y<=0;                
+                    end
+                    else 
+                    begin
+                        state<=3'b010;
+                        y<=0;                
+                    end            
+                end
+
+                3'b100:
+                begin
+                    if(x)
+                    begin
+                        state<=3'b001;
+                        y<=0;                
+                    end
+                    else 
+                    begin
+                        state<=3'b010;
+                        y<=1;                
+                    end            
+                end
+                default:
+                begin
+                    state<=3'b000;
+                    y<=0;
+                end
+            endcase
+        end
+    end
 endmodule
