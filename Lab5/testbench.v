@@ -53,12 +53,12 @@ endmodule
 
 module tbRegfile;
    reg clk,reset,RegWrite;
-   reg [1:0] ReadReg1,ReadReg2,WriteReg;
+   reg [4:0] ReadReg1,ReadReg2,WriteReg;
    reg [31:0] WriteData;
    
    wire [31:0] ReadData1,ReadData2;
    
-   RegFile rf(clk,reset,ReadReg1,ReadReg2,WriteData,WriteReg,RegWrite,ReadData1,ReadData2);
+   RegFile32 rf(clk,reset,ReadReg1,ReadReg2,WriteData,WriteReg,RegWrite,ReadData1,ReadData2);
    
    always @(clk)
       #5 clk<=~clk;
@@ -84,3 +84,9 @@ module tbRegfile;
        #200 $finish;
     end
 endmodule  
+
+/* TestBench Implementation for 32 bit reg file is quite simple and left to reader.
+ In case of need of help please comment below or raise an issue.
+
+
+PS: The implementaions have been tested by the author.*/  
