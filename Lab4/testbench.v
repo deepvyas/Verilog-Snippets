@@ -78,11 +78,11 @@ module tbALU();
 		b=32'h5a5a5a5a;
 		Operation=2'b00;
 		Binvert=1'b0;
-		Carryin=1'b0; //must perform AND resulting in zero
+		Carryin=1'b0; 			//must perform AND resulting in zero
 		
-		#100 Operation=2'b01; //OR
-		#100 Operation=2'b10; //ADD
-		#100 Binvert=1'b1;//SUB
+		#100 Operation=2'b01; 	//OR
+		#100 Operation=2'b10; 	//ADD
+		#100 Binvert=1'b1;		//SUB
 		#200 $finish;
 	end
 endmodule
