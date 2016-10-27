@@ -145,3 +145,22 @@ module ALUControl(op,ALUOp,funct);
 	assign op[2] = (funct[1] &ALUOp[1]) | ALUOp[0];
 	
 endmodule
+
+// Alternate Implementation to ALU
+module ALU(a, b, binv, cin, opn, result, cout);
+    input [31:0] a, b;
+    input binv, cin;
+    input [1:0] opn;
+    output cout;
+    output [31:0] result;
+    // binv 1 for subtraction 0 for add
+    // cin goes to full adder cin
+    // opn 00 for and, 01 for or, 10 for add/sub
+    wire [31:0] finalb, aandb, aorb, aopb;
+    
+    bit32_2to1mux bmux (finalb, binv, b, ~b);
+    bit32_AND aband (aandb, a, finalb);
+    bit32_OR abor (aorb, a, finalb);
+    bit32_FA_dataflow fa(cout, aopb, a, finalb, cin);
+    bit32_3to1mux selmux (result, opn, aandb, aorb, aopb);
+endmodule
