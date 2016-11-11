@@ -60,8 +60,8 @@ module FULLADDER(s,c,x,y,z);
     reg s,c;
     
     always @(x or y or z)
-       {s,c} = x+y+z;
-   endmodule
+       {c,s} = x+y+z;
+endmodule
 
 module ADDERSUB(c,overflow,out,A,B,sub);
     input [3:0] A,B;
@@ -83,4 +83,4 @@ module ADDERSUB(c,overflow,out,A,B,sub);
     FULLADDER f4(out[3],c,A[0],B[0],c3);
     
     xor(overflow,c3,c);
-endmodule    
+endmodule
