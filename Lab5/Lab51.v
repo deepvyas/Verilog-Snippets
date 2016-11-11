@@ -175,3 +175,30 @@ module RegFile32(clk,reset,ReadReg1,ReadReg2,WriteData,WriteReg,RegWrite,ReadDat
     mux32_1 mux2(ReadData2,reg_pack,ReadReg2);
 endmodule
 // End of Exercise
+
+// Alternate implementation of Register file
+module RegFile(clk, reset, ReadReg1, ReadReg2, WriteData, WriteReg, RegWrite, ReadData1, ReadData2);
+    input clk, reset;
+    input [1:0] ReadReg1, ReadReg2;
+    input [31:0] WriteData;
+    input [1:0] WriteReg;
+    input RegWrite;
+    output [31:0] ReadData1, ReadData2;
+
+    wire [31:0] q[0:3];
+    wire [3:0] registertowrite;
+    wire [3:0] clkwrite;
+
+    mux4_1 m1 (ReadData1, q[0], q[1], q[2], q[3], ReadReg1);
+    mux4_1 m2 (ReadData2, q[0], q[1], q[2], q[3], ReadReg2);
+ 
+    decoder2_4 d1(registertowrite, WriteReg);
+    
+    genvar j;
+    generate for (j=0; j<4; j=j+1) begin :write_loop
+       assign clkwrite[j] = clk & RegWrite & registertowrite[j];
+       reg_32bit r1(q[j], WriteData, clkwrite[j], reset);
+       end
+    endgenerate
+endmodule
+// End of alternate implementation
