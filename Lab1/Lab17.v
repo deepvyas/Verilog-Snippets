@@ -1,8 +1,8 @@
 module bcd_gray_gate(inp,out);
-    output [7:0] out;
-    input [7:0] inp;
+    output [0:7] out;
+    input [0:7] inp;
     
-    wire [7:0] out;
+    wire [0:7] out;
     
     and a1(out[0],inp[0],1);
     xor x1(out[1],inp[1],inp[0]);
